@@ -9,7 +9,7 @@ using namespace std;
 
 bool isFileOpen(string fileName) {
     fstream myFile;
-    myFile.open (fileName);
+    myFile.open(fileName);
     if (myFile.is_open() == false) {
         return false;
     }
@@ -22,9 +22,8 @@ bool isFileOpen(string fileName) {
 bool isWord(string fileName, string candidate) {
     bool flag = 0;
     string buffer;
-
     fstream myFile;
-    myFile.open (fileName, fstream::in);
+    myFile.open(fileName, fstream::in);
     while (getline(myFile, buffer)) {
         if (buffer == candidate) {
             flag = 1;
@@ -148,6 +147,16 @@ void Play(int letters, int rounds, string fileName) {
     cout << " Returning to menu. " << endl;
 }
 
+void addWord(string fileName) {
+    string word;
+    cout << " " << "\n Enter the word you want to add to dictionary " << endl << " ";
+    cin >> word;
+    fstream myFile;
+    myFile.open(fileName, fstream::out | fstream::app);
+    myFile << endl << word;
+    myFile.close();
+}
+
 void Menu(string fileName) {
     int choice = 0;
     int rounds = 10, letters = 10;
@@ -176,7 +185,7 @@ void Menu(string fileName) {
                 cout << " ------------------------------------------- " << endl << endl;
                 cout << " Choose option from the menu " << endl << " ";
                 cin >> subchoice;
-                switch (subchoice){
+                switch (subchoice) {
                     case 'a': {
                         cout << " Choose the number of submitted letters: " << endl << " ";
                         cin >> letters;
@@ -191,6 +200,7 @@ void Menu(string fileName) {
                 break;
             }
             case 3: {
+                addWord(fileName);
                 break;
             }
             case 4: {

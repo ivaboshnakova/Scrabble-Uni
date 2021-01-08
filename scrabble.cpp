@@ -180,6 +180,7 @@ void Menu(string fileName) {
             }
             case 2: {
                 cout << endl;
+                cout << " ------------------------------------------- " << endl;
                 cout << " a. Change the number of submitted letters " << endl;
                 cout << " b. Change the number of rounds " << endl;
                 cout << " ------------------------------------------- " << endl << endl;
@@ -189,10 +190,18 @@ void Menu(string fileName) {
                     case 'a': {
                         cout << " Choose the number of submitted letters: " << endl << " ";
                         cin >> letters;
+                        if (letters < 3 || letters > 100) {
+                            cout << " The number of submitted letters must be between 3 - 100. Try again" << endl << " ";
+                            cin >> letters;
+                        }
                         break;
                     }
                     case 'b': {
                         cout << " Choose the number of rounds: " << endl << " ";
+                        if (letters < 1 || letters > 100) {
+                            cout << " The number of submitted rounds must be between 1 - 100. Try again" << endl << " ";
+                            cin >> letters;
+                        }
                         cin >> rounds;
                         break;
                     }

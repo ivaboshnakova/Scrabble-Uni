@@ -1,13 +1,28 @@
+/**
+*
+* Solution to course project # 8
+* Introduction to programming course
+* Faculty of Mathematics and Informatics of Sofia University
+* Winter semester 2020/2021
+*
+* @author Iva Boshnakova
+* @idnumber 62565
+* @compiler GCC
+*
+* <scrabble game main file>
+*
+*/
+
 #include <iostream>
 #include <iomanip>
 #include <vector>
-#include <cstring>
+#include <string>
 #include <fstream>
 #include <ctime>
-#include <stdlib.h>
+#include <cstdlib>
 using namespace std;
 
-bool isFileOpen(string fileName) {
+bool IsFileOpen(string fileName) {
     fstream myFile;
     myFile.open(fileName);
     if (myFile.is_open() == false) {
@@ -19,7 +34,7 @@ bool isFileOpen(string fileName) {
     myFile.close();
 }
 
-bool isWord(string fileName, string candidate) {
+bool IsWord(string fileName, string candidate) {
     bool flag = 0;
     string buffer;
     fstream myFile;
@@ -38,7 +53,7 @@ bool isWord(string fileName, string candidate) {
     myFile.close();
 }
 
-bool isSubset(string main, string sub) {
+bool IsSubset(string main, string sub) {
     int counter = 0;
     for (int i = 0; i < sub.size(); i++) {
         for (int j = 0; j < main.size(); j++) {
@@ -62,7 +77,7 @@ string RandomLetters(int length) {
     string generator;
     int randIndex = 0;
     for (int i = 0; i < length; i++) {
-        randIndex = rand() % alphabet.size(); //pick random index between 0 - 22
+        randIndex = rand() % alphabet.size(); //pick random index between 0 - 25
         generator += alphabet[randIndex];
     }
     return generator;
@@ -126,7 +141,7 @@ void Play(int letters, int rounds, string fileName) {
 
         while (!flag) {
             cin >> guess;
-            if (isSubset(available, guess) && isWord(fileName, guess)) {
+            if (IsSubset(available, guess) && IsWord(fileName, guess)) {
                 flag = true;
                 points += guess.size();
                 if (i != rounds){
@@ -143,12 +158,13 @@ void Play(int letters, int rounds, string fileName) {
             }
         }
     }
-    cout << " Your total points are " << points << endl;
+    cout << "\n Your total points are " << points << endl;
     cout << " Returning to menu. " << endl;
 }
 
-void addWord(string fileName) {
-    string word;
+void AddWord(string fileName) {
+    const int maxSize = 50;
+    char word[maxSize];
     cout << " " << "\n Enter the word you want to add to dictionary " << endl << " ";
     cin >> word;
     fstream myFile;
@@ -209,7 +225,7 @@ void Menu(string fileName) {
                 break;
             }
             case 3: {
-                addWord(fileName);
+                AddWord(fileName);
                 break;
             }
             case 4: {
@@ -224,7 +240,7 @@ void Menu(string fileName) {
 
 int main() {
     string file = "dictionary.txt";
-    if (!isFileOpen(file)){
+    if (!IsFileOpen(file)){
         cout << "Failed to open file";
         return 0;
     }
